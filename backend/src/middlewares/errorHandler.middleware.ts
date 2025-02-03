@@ -1,5 +1,20 @@
-import { ErrorRequestHandler } from "express";
+import { ErrorRequestHandler, Response } from "express";
 import { AppError } from "../utils/appError";
+import { HTTPSTATUS } from "../config/http.config";
+import { ErrorCodeEnum } from "../enums/error-code.enum";
+import { z, ZodError } from "zod";
+
+const formatZodError = (res: Response, error: z.ZodError) => {
+  const errors = error?.issues?.map((err) => ({
+    field: err.path.join("."),
+    message: err.message,
+  }));
+  return res.status(HTTPSTATUS.BAD_REQUEST).json({
+    message: "Validation failed",
+    errors: errors,
+    errorCode: ErrorCodeEnum.VALIDATION_ERROR,
+  });
+};
 
 export const errorHandler: ErrorRequestHandler = (
   error,
@@ -14,6 +29,10 @@ export const errorHandler: ErrorRequestHandler = (
     return res.status(400).json({
       message: "Invalid JSON format. Please check your request body.",
     });
+  }
+
+  if (error instanceof ZodError) {
+    return formatZodError(res, error);
   }
 
   if (error instanceof AppError) {
