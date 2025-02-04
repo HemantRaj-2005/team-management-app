@@ -4,7 +4,7 @@ import {
   TaskPriorityEnumType,
   TaskStatusEnum,
   TaskStatusEnumType,
-} from "../utils/task.enum";
+} from "../enums/task.enum";
 
 import { generateTaskCode } from "../utils/uuid";
 
