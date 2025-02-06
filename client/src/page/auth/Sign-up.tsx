@@ -56,7 +56,7 @@ const SignUp = () => {
           className="flex items-center gap-2 self-center font-medium"
         >
           <Logo />
-          Team Sync.
+          Team Hoodie Dedo.
         </Link>
         <div className="flex flex-col gap-6">
           <Card>
