@@ -1,7 +1,9 @@
 import { Outlet } from "react-router-dom";
 
 const AuthRoute = () => {
-  return <Outlet />;
+  return (
+    <Outlet />
+  );
 };
 
 export default AuthRoute;
